@@ -1,4 +1,5 @@
-﻿using GameSystem.Interfaces;
+﻿using Application.Properties;
+using GameSystem.Interfaces;
 using System;
 
 namespace Application.ConsoleProcessors
@@ -7,27 +8,22 @@ namespace Application.ConsoleProcessors
     {
         public static void WriteLabel()
         {
-            Console.WriteLine("IS-02 - Zozuliuk Viktor - Variant 6 \n");
+            Console.WriteLine($"{AppTexts.Label}\n");
         }
 
         public static void WriteMenuCharacters()
         {
-            Console.WriteLine("Game includes next characters:");
-            var menu = "1 - Elf\n" +
-                "2 - Harpy\n" +
-                "3 - Orc\n" +
-                "4 - Pegasus\n" +
-                "5 - Time Keeper\n" +
-                "6 - Troll\n" +
-                "7 - Vampire\n" +
-                "8 - Witch\n";
-            Console.WriteLine(menu);
+            Console.WriteLine(AppTexts.MenuLabel);
+            var menu = AppTexts.Menu.Split('\n');
+            foreach (var item in menu)
+                Console.WriteLine($"\t{item}");
+            Console.WriteLine();
         }
 
         public static void WriteCharacter(Character character)
         {
             Console.WriteLine(character);
-            Console.WriteLine($"\t{character.Move()}");
+            Console.WriteLine($"\t{character.Move()}\n");
         }
     }
 }

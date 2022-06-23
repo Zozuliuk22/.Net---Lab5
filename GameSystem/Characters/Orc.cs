@@ -1,13 +1,20 @@
-﻿using GameSystem.Interfaces;
+﻿using GameSystem.Enums;
+using GameSystem.Interfaces;
+using System.Collections.Generic;
 
 namespace GameSystem.Characters
 {
     public class Orc : Character
     {
-        public Orc()
+        protected override void Initialize()
         {
             Health = 1430;
             Damage = 60;
-        }        
+            HasMagic = false;
+            PossibleActions = new List<CharacterAction>()
+            {
+                CharacterAction.Walk
+            };
+        }
     }
 }

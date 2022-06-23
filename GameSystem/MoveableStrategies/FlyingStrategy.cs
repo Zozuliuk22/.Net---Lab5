@@ -1,4 +1,5 @@
 ﻿using GameSystem.Interfaces;
+using GameSystem.Properties;
 
 namespace GameSystem.MoveableStrategies
 {
@@ -6,7 +7,7 @@ namespace GameSystem.MoveableStrategies
     {
         public string Move()
         {
-            return "I'm flying to my destination.";
+            return GameTexts.Flying;
         }
     }
 }

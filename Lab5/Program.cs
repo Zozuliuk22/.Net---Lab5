@@ -1,9 +1,9 @@
-﻿using Application;
-using Application.ConsoleProcessors;
+﻿using Application.ConsoleProcessors;
+using Application.Properties;
 using GameSystem.Interfaces;
 using System;
 
-namespace Lab5
+namespace Application
 {
     internal class Program
     {
@@ -26,7 +26,7 @@ namespace Lab5
 
         static void Menu(int answer, string name)
         {
-            Character character;
+            Character character = null;
 
             switch (answer)
             {
@@ -45,12 +45,10 @@ namespace Lab5
                 case 4:
                     character = _gameClient.ChoosePegasus(name);
                     ConsoleWriter.WriteCharacter(character);
-                    Play(character);
                     break;
                 case 5:
                     character = _gameClient.ChooseTimeKeeper(name);
                     ConsoleWriter.WriteCharacter(character);
-                    Play(character);
                     break;
                 case 6:
                     character = _gameClient.ChooseTroll(name);
@@ -62,21 +60,28 @@ namespace Lab5
                     break;
                 case 8:
                     character = _gameClient.ChooseWitch(name);
-                    ConsoleWriter.WriteCharacter(character);
-                    Play(character);
+                    ConsoleWriter.WriteCharacter(character);                    
                     break;
-            }            
+            }
+
+            Play(character);
         }
 
         static void Play(Character character)
         {
-            var key = ConsoleReader.ReadConsoleKey();
-            while (key != ConsoleKey.E)
+            if(character is not null)
             {
-                _gameClient.ChangeMove(character, key);
-                Console.WriteLine(character.Move());
-                key = ConsoleReader.ReadConsoleKey();
-            }
+                var key = ConsoleReader.ReadConsoleKey();
+                while (key != ConsoleKey.E)
+                {
+                    var action = Constants.KeyStrategies[key];
+                    if (character.ChangeMove(action))
+                        Console.WriteLine($"\n\t{character.Move()}\n");
+                    else
+                        Console.WriteLine($"\n\t{AppTexts.WrongAction}\n");
+                    key = ConsoleReader.ReadConsoleKey();
+                }
+            }            
         }
     }
 }

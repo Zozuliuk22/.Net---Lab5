@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Properties;
+using GameSystem.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,24 +8,28 @@ namespace Application.ConsoleProcessors
 {
     public static class ConsoleReader
     {
-        private static List<ConsoleKey?> _keys = new()
+        private static Dictionary<ConsoleKey?, string> _keys = new()
         {
-            ConsoleKey.W,
-            ConsoleKey.F,
-            ConsoleKey.E
+            { ConsoleKey.W, "walking" },
+            { ConsoleKey.F, "flying" },
+            { ConsoleKey.E, "end" }
         };
 
         public static ConsoleKey ReadConsoleKey()
         {
-            Console.Write($"Please, choose the moving [W - walking / F - flying / E -end] : ");
+            foreach(var point in _keys)
+                Console.WriteLine($"\t{point.Key} - {point.Value}");
+            Console.WriteLine();
+
+            Console.Write(AppTexts.ChooseMoving);
 
             var key = Console.ReadKey().Key;
 
             Console.WriteLine();
 
-            while (_keys.FirstOrDefault(k => k == key) is null)
+            while (!_keys.TryGetValue(key, out _))
             {
-                Console.Write($"Please, choose the moving [W - walking / F - flying / E -end] : ");
+                Console.Write(AppTexts.ChooseMoving);
                 key = Console.ReadKey().Key;
                 Console.WriteLine();
             }            
@@ -35,13 +41,13 @@ namespace Application.ConsoleProcessors
         {
             var answer = 0;
 
-            Console.Write("Please, enter the character: ");
+            Console.Write(AppTexts.ChooseCharacter);
 
             var number = Console.ReadLine();
 
             while (!Int32.TryParse(number, out answer) || answer <= 0 || answer > 8)
             {
-                Console.Write("Please, enter the character: ");
+                Console.Write(AppTexts.ChooseCharacter);
                 number = Console.ReadLine();
             }
 
@@ -50,7 +56,7 @@ namespace Application.ConsoleProcessors
 
         public static string ReadName()
         {
-            Console.Write("Please, enter the name: ");
+            Console.Write(AppTexts.EnterName);
             return Console.ReadLine();
         }
     }

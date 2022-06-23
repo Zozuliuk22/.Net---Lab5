@@ -1,21 +1,11 @@
 ﻿using GameSystem.Interfaces;
-using GameSystem.MoveableStrategies;
 using GameSystem.Characters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameSystem.Enums;
 
 namespace Application
 {
     public class GameClient
     {
-        private Dictionary<ConsoleKey, IMoveableStrategy> _strategies = new()
-        {
-            { ConsoleKey.W, new WalkingStrategy() },
-            { ConsoleKey.F, new FlyingStrategy() },
-        };
 
         public Character ChooseElf(string name)
         {
@@ -23,7 +13,7 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.W]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Walk]);
             return character;
         }
 
@@ -33,7 +23,7 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.F]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Fly]);
             return character;
         }
 
@@ -43,7 +33,7 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.W]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Walk]);
             return character;
         }
 
@@ -53,7 +43,7 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.W]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Walk]);
             return character;
         }
 
@@ -63,7 +53,7 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.W]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Walk]);
             return character;
         }
 
@@ -75,7 +65,7 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.W]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Walk]);
             return character;
         }
 
@@ -85,7 +75,7 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.W]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Walk]);
             return character;
         }
 
@@ -95,15 +85,8 @@ namespace Application
             {
                 Name = name,
             };
-            character.SetStrategy(_strategies[ConsoleKey.W]);
+            character.SetStrategy(Constants.Strategies[CharacterAction.Walk]);
             return character;
-        }
-
-
-        public Character ChangeMove(Character character, ConsoleKey key)
-        {
-            character.SetStrategy(_strategies[key]);
-            return character;
-        }
+        }        
     }
 }
